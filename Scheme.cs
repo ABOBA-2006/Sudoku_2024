@@ -10,6 +10,8 @@ public class Scheme {
     private const int Size = 9;
 
     private int _mistakes = 0;
+    
+    private int _hints = 0;
 
     public bool ToShowPossibleMoves = false;
 
@@ -170,7 +172,7 @@ public class Scheme {
                             button.Content.ToString() ?? throw new InvalidOperationException());
                         _mistakes += 1;
                         var mainWindow = (MainWindow)Application.Current.MainWindow;
-                        mainWindow.AttemptsTextBlock.Text = "Mistakes: " + _mistakes.ToString() + "/3";
+                        mainWindow.Attempts.Text = "Mistakes: " + _mistakes.ToString() + "/3";
 
                         if (_mistakes == 3)
                         {
@@ -178,6 +180,38 @@ public class Scheme {
                         }
                     }
                 }
+            }
+        }
+    }
+    public void HintButtonClicked()
+    {
+        int intClickedRow = Int32.Parse(_currentButton.Name[5].ToString());
+        int intClickedColumn = Int32.Parse(_currentButton.Name[6].ToString());
+        
+        if (_wasFirstClick && (Fields[intClickedRow, intClickedColumn] == "0" || Fields[intClickedRow, intClickedColumn] == "10"))
+        {
+            if (_hints != 3)
+            {
+                _currentButton.Content = SudokuAlgo.GiveHint(intClickedRow, intClickedColumn, Fields);
+                _currentButton.Foreground = Brushes.Black;
+
+                Fields[intClickedRow, intClickedColumn] = _currentButton.Content.ToString();
+            
+                LightningUpButton(_currentButton.Name[5], _currentButton.Name[6], _currentButton.Content.ToString());
+
+                _hints += 1;
+                var mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.Hint.Text = _hints + "/3";
+
+                if (SudokuAlgo.IsWin(Fields))
+                {
+                    mainWindow.EndAnimation("win");
+                }
+            }
+            else
+            {
+                var mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.HintLack.Visibility = Visibility.Visible;
             }
         }
     }
@@ -293,9 +327,12 @@ public class Scheme {
     // RESTART FUNCTION.................................................................................................
     public void Restart(string[,] schemeFromFile)
     {
+        _hints = 0;
         _mistakes = 0;
         var mainWindow = (MainWindow)Application.Current.MainWindow;
-        mainWindow.AttemptsTextBlock.Text = "Mistakes: " + _mistakes.ToString() + "/3";
+        mainWindow.Attempts.Text = "Mistakes: " + _mistakes.ToString() + "/3";
+        mainWindow.Hint.Text = _hints + "/3";   
+        mainWindow.HintLack.Visibility = Visibility.Collapsed;
         
         _wasFirstClick = false;
         _currentButton = new Button();

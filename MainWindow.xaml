@@ -127,7 +127,8 @@
                 </Button>
             </Border>
             <Border Grid.Row="11" Grid.Column="9" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="4">
-                <Button Background="LightBlue" BorderThickness="0" FontSize="20" FontFamily="Comic Sans MS" Cursor="Hand">
+                <Button Background="LightBlue" BorderThickness="0" FontSize="20" FontFamily="Comic Sans MS" 
+                        Cursor="Hand" Click="HintButtonClicked">
                     Hint
                 </Button>
             </Border>
@@ -135,6 +136,10 @@
             <!-- HINT TEXT -->
             <TextBlock Grid.Row="12" Grid.Column="9" Grid.ColumnSpan="3" HorizontalAlignment="Center" Name="Hint"
                        VerticalAlignment="Top" FontSize="15" FontFamily="Comic Sans Ms">0/3</TextBlock>
+            <TextBlock Grid.Row="12" Grid.Column="9" Grid.ColumnSpan="3" HorizontalAlignment="Center" Name="HintLack"
+                       VerticalAlignment="Center" FontSize="15" FontFamily="Comic Sans Ms" Visibility="Collapsed">
+                (no more hints)
+            </TextBlock>
         
             <!-- RECTANGLE FOR BEAUTY -->
             <Rectangle Grid.Row="9" Grid.Column="10" Grid.ColumnSpan="2" Grid.RowSpan="2" Fill="Black" 

@@ -7,7 +7,7 @@ public static class Files
     public static string[,] Read()
     {
         // TODO change for a dynamic folder location
-        const string fileName = "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\schemes\\scheme_solve.txt"; 
+        const string fileName = "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\schemes\\scheme.txt"; 
         
         string[,] splitText = new string[9,9];
 

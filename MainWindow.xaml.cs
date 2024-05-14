@@ -11,8 +11,6 @@ public partial class MainWindow : Window
 {
     private readonly Scheme _sudokuScheme = new Scheme();
     
-    public TextBlock AttemptsTextBlock => Attempts;
-    
     public MainWindow()
     {
         InitializeComponent();
@@ -60,6 +58,11 @@ public partial class MainWindow : Window
                 button.Background = Brushes.LightBlue;
             }
         }
+    }
+
+    private void HintButtonClicked(object sender, RoutedEventArgs e)
+    {
+        _sudokuScheme.HintButtonClicked();
     }
 
     private void StartButtonClicked(object sender, RoutedEventArgs e)

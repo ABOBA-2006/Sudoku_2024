@@ -118,4 +118,22 @@ public static class SudokuAlgo
         }
         return true;
     }
+
+    public static string GiveHint(int row, int column, string[,] fields)
+    {
+        List<string> possibleMoves = GetPossibleMoves(row, column, fields);
+
+        foreach (var element in possibleMoves)
+        {
+            string[,] temp = (string[,])fields.Clone();
+            temp[row, column] = element;
+            
+            if(Backtracking(temp))
+            {
+                return element;
+            }
+        }
+
+        return "";
+    }
 }

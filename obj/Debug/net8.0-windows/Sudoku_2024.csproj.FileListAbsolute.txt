@@ -18,3 +18,4 @@ C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\obj\Debug\net8.0-windows\Su
 C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024.genruntimeconfig.cache
 C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\obj\Debug\net8.0-windows\ref\Sudoku_2024.dll
 C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\bin\Debug\net8.0-windows\schemes\scheme.txt
+C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024.sourcelink.json

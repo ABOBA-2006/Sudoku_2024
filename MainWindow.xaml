@@ -1,0 +1,214 @@
+﻿<Window x:Class="Sudoku_2024.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Icon="C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\Flag_of_Ukraine.png"
+        Title="SUDOKU" Height="780" Width="780" ResizeMode="NoResize" Loaded="MainWindow_Loaded">
+    
+    <Window.Resources>
+        <Storyboard x:Key="MoveAnimationText">
+            <DoubleAnimation
+                Storyboard.TargetName="MovingText"
+                Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                From="-850" To="0" Duration="0:0:1" BeginTime="0:0:1.5"/>
+        </Storyboard>
+        <Storyboard x:Key="MoveAnimationButton">
+            <DoubleAnimation
+                Storyboard.TargetName="MovingButton"
+                Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                From="550" To="0" Duration="0:0:1" BeginTime="0:0:1.5"/>
+        </Storyboard>
+    </Window.Resources>
+    
+    <Grid>
+        
+        <!-- WELCOME MENU -->
+        <Grid Name="StartGrid" Opacity="1">
+            <Border BorderThickness="4" BorderBrush="DarkCyan"><Rectangle Width="780" Height="780"/></Border>
+            
+            <StackPanel VerticalAlignment="Center">
+                <Grid x:Name="MovingText" VerticalAlignment="Center" Width="auto">
+                    <Grid.RenderTransform>
+                        <TranslateTransform X="-850" Y="0"/>
+                    </Grid.RenderTransform>
+                    <StackPanel>
+                        <TextBlock TextAlignment="Center" FontFamily="Comic Sans Ms" FontSize="60">THE SUDOKU GAME</TextBlock>
+                        <TextBlock TextAlignment="Right" Margin="0,0,50,0" FontFamily="Comic Sans Ms" FontSize="20" >Made by Zero Two  </TextBlock>
+                    </StackPanel>
+                </Grid>
+                
+                <Button x:Name="MovingButton" Width="200" Height="60" Margin="0,50,0,0" 
+                        BorderBrush="DarkCyan" BorderThickness="3" FontFamily="Comic Sans Ms" FontSize="30" 
+                        Cursor="Hand" Foreground="DarkCyan" Click="StartButtonClicked">
+                    <Button.RenderTransform>
+                        <TranslateTransform X="550" Y="0"/>
+                    </Button.RenderTransform>
+                    
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="PowderBlue"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="False">
+                                    <Setter Property="Background" Value="LightCyan"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    START
+                </Button>
+            </StackPanel>
+            
+            
+            <Polygon Points="0,0 240,0 0,240" Fill="DarkCyan" />
+            <Polygon Points="540,0 780,0 780,240" Fill="DarkCyan" />
+            <Polygon Points="0,540 0,780 240,780" Fill="DarkCyan" />
+            <Polygon Points="540,780 780,780 780,540" Fill="DarkCyan"/> 
+        </Grid>
+        
+        <!-- MAIN MENU -->
+        <Grid Name="MainGrid" Opacity="0" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!-- TITLE -->
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="13" HorizontalAlignment="Center" 
+                       VerticalAlignment="Top" FontSize="30" FontFamily="Comic Sans Ms">SUDOKU</TextBlock>
+            
+            <!-- ATTEMPTS -->
+            <TextBlock Grid.Row="0" Grid.Column="9" Grid.ColumnSpan="3" HorizontalAlignment="Center" Name="Attempts"
+                       VerticalAlignment="Center" FontSize="20" FontFamily="Comic Sans Ms">Mistakes: 0/3 </TextBlock>
+        
+            <!-- BUTTONS ROW -->
+            <Border Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="4">
+                <Button Background="LightBlue" BorderThickness="0" FontSize="20" FontFamily="Comic Sans MS" Cursor="Hand" >
+                    Whole Solution
+                </Button>
+            </Border>
+            <Border Grid.Row="11" Grid.Column="5" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="4">
+                <Button Background="LightBlue" BorderThickness="0" FontSize="20" Name="ButtonPossibleMoves"
+                        Click="ButtonPossibleMoves_OnCLick" FontFamily="Comic Sans MS" Cursor="Hand">
+                    Possible Moves
+                </Button>
+            </Border>
+            <Border Grid.Row="11" Grid.Column="9" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="4">
+                <Button Background="LightBlue" BorderThickness="0" FontSize="20" FontFamily="Comic Sans MS" Cursor="Hand">
+                    Hint
+                </Button>
+            </Border>
+            
+            <!-- HINT TEXT -->
+            <TextBlock Grid.Row="12" Grid.Column="9" Grid.ColumnSpan="3" HorizontalAlignment="Center" Name="Hint"
+                       VerticalAlignment="Top" FontSize="15" FontFamily="Comic Sans Ms">0/3</TextBlock>
+        
+            <!-- RECTANGLE FOR BEAUTY -->
+            <Rectangle Grid.Row="9" Grid.Column="10" Grid.ColumnSpan="2" Grid.RowSpan="2" Fill="Black" 
+                       Width="15" Height="15" Margin="10, 10" Stroke="Black"/>
+        </Grid>
+        
+        <!-- END MENU -->
+        <Grid Name="EndMenu" Visibility="Collapsed">
+            
+            <Border BorderThickness="4" BorderBrush="DarkRed" Name="BorderEdge"><Rectangle Width="780" Height="780"/></Border>
+            <Polygon Points="0,0 240,0 0,240" Fill="DarkRed" />
+            <Polygon Points="540,0 780,0 780,240" Fill="DarkRed" />
+            <Polygon Points="0,540 0,780 240,780" Fill="DarkRed" />
+            <Polygon Points="540,780 780,780 780,540" Fill="DarkRed"/> 
+            
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="60" 
+                            FontFamily="Comic Sans Ms" Foreground="DarkRed" Name = "Result">
+                    YOU LOOSE
+                </TextBlock>
+                <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" 
+                            FontFamily="Comic Sans Ms" Foreground="SlateGray">
+                    (press restart to try one more time or just close the window)
+                </TextBlock>
+                
+                <Button x:Name="RestartButtonLoose" Width="200" Height="60" Margin="0,50,0,0" 
+                        BorderBrush="DarkRed" BorderThickness="3" FontFamily="Comic Sans Ms" FontSize="30" 
+                        Cursor="Hand" Foreground="DarkRed" Click="RestartButtonClicked">
+                    
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Coral"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="False">
+                                    <Setter Property="Background" Value="LightCoral"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    RESTART
+                </Button>
+                
+                <Button x:Name="RestartButtonWin" Width="200" Height="60" Margin="0,50,0,0" 
+                        BorderBrush="Green" BorderThickness="3" FontFamily="Comic Sans Ms" FontSize="30" 
+                        Cursor="Hand" Foreground="Green"  Click="RestartButtonClicked">
+                    
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="GreenYellow"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="False">
+                                    <Setter Property="Background" Value="YellowGreen"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    RESTART
+                </Button>
+                
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

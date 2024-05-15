@@ -135,23 +135,91 @@
                        VerticalAlignment="Center" FontSize="20" FontFamily="Comic Sans Ms">Mistakes: 0/3 </TextBlock>
         
             <!-- BUTTONS ROW -->
-            <Border Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="4">
-                <Button Background="LightBlue" BorderThickness="0" FontSize="20" FontFamily="Comic Sans MS" Cursor="Hand" >
-                    Whole Solution
-                </Button>
-            </Border>
-            <Border Grid.Row="11" Grid.Column="5" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="4">
-                <Button Background="LightBlue" BorderThickness="0" FontSize="20" Name="ButtonPossibleMoves"
-                        Click="ButtonPossibleMoves_OnCLick" FontFamily="Comic Sans MS" Cursor="Hand">
-                    Possible Moves
-                </Button>
-            </Border>
-            <Border Grid.Row="11" Grid.Column="9" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="4">
-                <Button Background="LightBlue" BorderThickness="0" FontSize="20" FontFamily="Comic Sans MS" 
-                        Cursor="Hand" Click="HintButtonClicked">
-                    Hint
-                </Button>
-            </Border>
+            <Button Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="3" x:Name="ButtonShowSolution" BorderBrush="Black"
+                    BorderThickness="4" FontFamily="Comic Sans Ms" FontSize="20" Cursor="Hand"
+                    Click="ShowSolution">
+            
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightSteelBlue"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Background" Value="LightBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                Whole Solution
+            </Button>
+            <Button Grid.Row="11" Grid.Column="5" Grid.ColumnSpan="3" x:Name="ButtonPossibleMoves" BorderBrush="Black"
+                    BorderThickness="4" FontFamily="Comic Sans Ms" FontSize="20" Cursor="Hand" Background="LightBlue"
+                    Click="ButtonPossibleMoves_OnCLick">
+            
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+                Possible Moves
+            </Button>
+            <Button Grid.Row="11" Grid.Column="9" Grid.ColumnSpan="3" x:Name="ButtonHints" BorderBrush="Black"
+                    BorderThickness="4" FontFamily="Comic Sans Ms" FontSize="20" Cursor="Hand"
+                    Click="HintButtonClicked">
+            
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightSteelBlue"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Background" Value="LightBlue"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                Hint
+            </Button>
+            
+            <Button Grid.Row="11" Grid.Column="1" Grid.ColumnSpan="11" x:Name="RestartButton"
+                    BorderBrush="Black" BorderThickness="3" FontFamily="Comic Sans Ms"
+                    FontSize="30" Cursor="Hand" Foreground="Ivory" Click="RestartButtonClicked" Visibility="Collapsed">
+                    
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" CornerRadius="10" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="CadetBlue"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Background" Value="DarkCyan"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                RESTART
+            </Button>
             
             <!-- HINT TEXT -->
             <TextBlock Grid.Row="12" Grid.Column="9" Grid.ColumnSpan="3" HorizontalAlignment="Center" Name="Hint"

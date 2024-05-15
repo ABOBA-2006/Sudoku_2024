@@ -3,7 +3,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using System.Windows.Markup;
 
 namespace Sudoku_2024;
 
@@ -13,6 +12,8 @@ public class Scheme {
     private int _mistakes = 0;
     
     private int _hints = 0;
+    
+    public bool IsSolutionShowing = false;
 
     public bool ToShowPossibleMoves = false;
 
@@ -27,6 +28,8 @@ public class Scheme {
         set;
     } = new string[Size, Size];
 
+    private Dictionary<string, Button> FieldButtons = new Dictionary<string, Button>();
+
 
     // CODE THAT RESPOND FOR LIGHTING BUTTONS WITH THE SAME CONTENT.....................................................
     private void LightningUpButton(char clickedRow, char clickedColumn, string clickedContent)
@@ -34,54 +37,48 @@ public class Scheme {
         int intClickedRow = Int32.Parse(clickedRow.ToString());
         int intClickedColumn = Int32.Parse(clickedColumn.ToString());
             
-        foreach (var child in _mainGrid.Children)
+        foreach (var button in FieldButtons.Values)
         {
-            if (child is Button button)
+            if (Fields[intClickedRow, intClickedColumn] == "10")
             {
-                if (button.Name.StartsWith("Block"))
+                if (button.Name[5] == clickedRow || button.Name[6] == clickedColumn ||
+                    (Int32.Parse(button.Name[5].ToString()) / 3 == intClickedRow / 3 
+                     && Int32.Parse(button.Name[6].ToString()) / 3 == intClickedColumn / 3))
                 {
-                    if (Fields[intClickedRow, intClickedColumn] == "10")
+                    if (button.Content.ToString() == clickedContent && 
+                        !(clickedRow == button.Name[5] && clickedColumn == button.Name[6]))
                     {
-                        if (button.Name[5] == clickedRow || button.Name[6] == clickedColumn ||
-                            (Int32.Parse(button.Name[5].ToString()) / 3 == intClickedRow / 3 
-                             && Int32.Parse(button.Name[6].ToString()) / 3 == intClickedColumn / 3))
-                        {
-                            if (button.Content.ToString() == clickedContent && 
-                                !(clickedRow == button.Name[5] && clickedColumn == button.Name[6]))
-                            {
-                                button.Background = Brushes.LightSalmon;
-                                continue;
-                            }
-                        }
-                    }
-                    if (Fields[Int32.Parse(button.Name[5].ToString()), Int32.Parse(button.Name[6].ToString())] == "10")
-                    {
-                        button.Background = Brushes.Salmon;
+                        button.Background = Brushes.LightSalmon;
                         continue;
                     }
-                    if (button.Content.ToString() == clickedContent && button.Content.ToString() != " " && 
-                        !(clickedRow == button.Name[5] && clickedColumn == button.Name[6]) )
-                    {
-                        if (Fields[intClickedRow, intClickedColumn] != "0" )
-                        {
-                            button.Background = Brushes.CornflowerBlue;
-                            continue;
-                        }
-                    }
-                
-                    if (button.Name[5] == clickedRow && button.Name[6] == clickedColumn)
-                    {
-                        button.Background = Brushes.LightSkyBlue;
-                    } else if (button.Name[5] == clickedRow || button.Name[6] == clickedColumn ||
-                               (Int32.Parse(button.Name[5].ToString()) / 3 == intClickedRow / 3 
-                                && Int32.Parse(button.Name[6].ToString()) / 3 == intClickedColumn / 3))
-                    {
-                        button.Background = Brushes.LightBlue;
-                    } else
-                    {
-                        button.Background = Brushes.White;
-                    }
                 }
+            }
+            if (Fields[Int32.Parse(button.Name[5].ToString()), Int32.Parse(button.Name[6].ToString())] == "10")
+            {
+                button.Background = Brushes.Salmon;
+                continue;
+            }
+            if (button.Content.ToString() == clickedContent && button.Content.ToString() != " " && 
+                !(clickedRow == button.Name[5] && clickedColumn == button.Name[6]) )
+            {
+                if (Fields[intClickedRow, intClickedColumn] != "0" )
+                {
+                    button.Background = Brushes.CornflowerBlue;
+                    continue;
+                }
+            }
+        
+            if (button.Name[5] == clickedRow && button.Name[6] == clickedColumn)
+            {
+                button.Background = Brushes.LightSkyBlue;
+            } else if (button.Name[5] == clickedRow || button.Name[6] == clickedColumn ||
+                       (Int32.Parse(button.Name[5].ToString()) / 3 == intClickedRow / 3 
+                        && Int32.Parse(button.Name[6].ToString()) / 3 == intClickedColumn / 3))
+            {
+                button.Background = Brushes.LightBlue;
+            } else
+            {
+                button.Background = Brushes.White;
             }
         }
     }
@@ -107,7 +104,7 @@ public class Scheme {
             _wasFirstClick = true;
             
             // CODE THAT RESPOND FOR SHOWING POSSIBLE MOVES (miniHINT)..................................................
-            if (Fields[intClickedRow, intClickedColumn] == "0" && ToShowPossibleMoves)
+            if (Fields[intClickedRow, intClickedColumn] == "0" && ToShowPossibleMoves && !IsSolutionShowing)
             {
                 string[] possibleMoves = SudokuAlgo.GetPossibleMoves(intClickedRow, intClickedColumn, Fields).ToArray();
                 clickedButton.FontSize = 10;
@@ -136,7 +133,7 @@ public class Scheme {
     {
         if (sender is Button button)
         {
-            if (_wasFirstClick)
+            if (_wasFirstClick && !IsSolutionShowing)
             {
                 int currentRow = Int32.Parse(_currentButton.Name[5].ToString());
                 int currentColumn = Int32.Parse(_currentButton.Name[6].ToString());
@@ -186,34 +183,37 @@ public class Scheme {
     }
     public void HintButtonClicked()
     {
-        int intClickedRow = Int32.Parse(_currentButton.Name[5].ToString());
-        int intClickedColumn = Int32.Parse(_currentButton.Name[6].ToString());
-        
-        if (_wasFirstClick && (Fields[intClickedRow, intClickedColumn] == "0" || Fields[intClickedRow, intClickedColumn] == "10"))
+        if (_wasFirstClick && !IsSolutionShowing)
         {
-            if (_hints != 3)
-            {
-                _currentButton.Content = SudokuAlgo.GiveHint(intClickedRow, intClickedColumn, Fields);
-                _currentButton.Foreground = Brushes.Black;
-                _currentButton.FontSize = 30;
-
-                Fields[intClickedRow, intClickedColumn] = _currentButton.Content.ToString();
+            int intClickedRow = Int32.Parse(_currentButton.Name[5].ToString());
+            int intClickedColumn = Int32.Parse(_currentButton.Name[6].ToString());
             
-                LightningUpButton(_currentButton.Name[5], _currentButton.Name[6], _currentButton.Content.ToString());
-
-                _hints += 1;
-                var mainWindow = (MainWindow)Application.Current.MainWindow;
-                mainWindow.Hint.Text = _hints + "/3";
-
-                if (SudokuAlgo.IsWin(Fields))
-                {
-                    mainWindow.EndAnimation("win");
-                }
-            }
-            else
+            if (Fields[intClickedRow, intClickedColumn] == "0" || Fields[intClickedRow, intClickedColumn] == "10")
             {
-                var mainWindow = (MainWindow)Application.Current.MainWindow;
-                mainWindow.HintLack.Visibility = Visibility.Visible;
+                if (_hints != 3)
+                {
+                    _currentButton.Content = SudokuAlgo.GiveHint(intClickedRow, intClickedColumn, Fields);
+                    _currentButton.Foreground = Brushes.Black;
+                    _currentButton.FontSize = 30;
+
+                    Fields[intClickedRow, intClickedColumn] = _currentButton.Content.ToString();
+            
+                    LightningUpButton(_currentButton.Name[5], _currentButton.Name[6], _currentButton.Content.ToString());
+
+                    _hints += 1;
+                    var mainWindow = (MainWindow)Application.Current.MainWindow;
+                    mainWindow.Hint.Text = _hints + "/3";
+
+                    if (SudokuAlgo.IsWin(Fields))
+                    {
+                        mainWindow.EndAnimation("win");
+                    }
+                }
+                else
+                {
+                    var mainWindow = (MainWindow)Application.Current.MainWindow;
+                    mainWindow.HintLack.Visibility = Visibility.Visible;
+                }
             }
         }
     }
@@ -309,6 +309,11 @@ public class Scheme {
                 newButton.Click += FieldButtonClicked;
                 
                 ButtonProperties(newButton, Brushes.White,Brushes.Black,0);
+
+                string first = i.ToString();
+                string second = j.ToString();
+                FieldButtons[first+second] = newButton;
+                
                 myGrid.Children.Add(newButton);
             }
         }
@@ -343,7 +348,14 @@ public class Scheme {
         mainWindow.Hint.Text = _hints + "/3";   
         mainWindow.HintLack.Visibility = Visibility.Collapsed;
         
+        mainWindow.ButtonPossibleMoves.Visibility = Visibility.Visible;
+        mainWindow.ButtonHints.Visibility = Visibility.Visible;
+        mainWindow.ButtonShowSolution.Visibility = Visibility.Visible;
+        mainWindow.Hint.Visibility = Visibility.Visible;
+        mainWindow.RestartButton.Visibility = Visibility.Collapsed;
+        
         _wasFirstClick = false;
+        IsSolutionShowing = false;
         _currentButton = new Button();
         Fields = schemeFromFile;
         ToShowPossibleMoves = false;
@@ -351,37 +363,69 @@ public class Scheme {
         // UPGRADE NEW SCHEME CONTENT
         int k1 = 0;
         int k2 = 0;
-        foreach (var child in _mainGrid.Children)
+        foreach (var child in FieldButtons.Values)
         {
-            if (child is Button button)
+            if (k2 == 9)
             {
-                if (button.Name.StartsWith("Block"))
-                {
-                    if (k2 == 9)
-                    {
-                        k2 = 0;
-                        k1 += 1;
-                    }
-                    
-                    if (k1 == 9)
-                    {
-                        return;
-                    }
-
-                    if (Fields[k1, k2] == "0")
-                    {
-                        button.Content = " "; 
-                    }
-                    else
-                    {
-                        button.Content = Fields[k1, k2];
-                    }
-                    
-                    button.Background = Brushes.White;
-                    
-                    k2 += 1;
-                }
+                k2 = 0;
+                k1 += 1;
             }
+            
+            if (k1 == 9)
+            {
+                return;
+            }
+
+            if (Fields[k1, k2] == "0")
+            {
+                child.Content = " "; 
+            }
+            else
+            {
+                child.Content = Fields[k1, k2];
+            }
+            
+            child.Background = Brushes.White;
+            
+            k2 += 1;
         }
+    }
+    
+    // SHOW BACKTRACKING ANIMATION......................................................................................
+    public async Task<bool> BacktrackingGraphics(string[,] fields, int row=0, int column=0)
+    {
+        if (row == 9)
+        {
+            return true;
+        }
+        if (column == 9)
+        {
+            return await BacktrackingGraphics(fields, row + 1);
+        }
+
+        if (fields[row, column] == "0" || fields[row,column] == "10")
+        {
+            List<string> possibleMoves = SudokuAlgo.GetPossibleMoves(row, column, fields);
+            foreach (var move in possibleMoves)
+            {
+                await Task.Delay(200);
+                fields[row, column] = move;
+                FieldButtons[row.ToString() + column].Content = move;
+                
+                if (await BacktrackingGraphics(fields, row, column + 1))
+                {
+                    return true;
+                }
+                FieldButtons[row.ToString() + column].Background = Brushes.Salmon;
+                await Task.Delay(300);
+                FieldButtons[row.ToString() + column].Background = Brushes.White;
+                fields[row, column] = "0";
+                FieldButtons[row.ToString() + column].Content = " ";
+            }
+
+            return false;
+        }
+
+        return await BacktrackingGraphics(fields, row, column + 1);
     }
 }

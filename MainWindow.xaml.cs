@@ -46,17 +46,27 @@ public partial class MainWindow : Window
 
     private void ButtonPossibleMoves_OnCLick(object sender, RoutedEventArgs e)
     {
-        if (sender is Button button)
+        if (sender is Button button && !_sudokuScheme.IsSolutionShowing)
         {
             if (button.Background == Brushes.LightBlue)
             {
                 _sudokuScheme.ToShowPossibleMoves = true;
                 button.Background = Brushes.Teal;
+                button.Foreground = Brushes.Ivory;
             }
             else
             {
                 _sudokuScheme.ToShowPossibleMoves = false;
                 button.Background = Brushes.LightBlue;
+                button.Foreground = Brushes.Black;
+            }
+        }
+        if (sender is Button button2)
+        {
+            if (_sudokuScheme is { IsSolutionShowing: true, ToShowPossibleMoves: true })
+            {
+                button2.Background = Brushes.LightBlue;
+                button2.Foreground = Brushes.Black;
             }
         }
     }
@@ -149,5 +159,23 @@ public partial class MainWindow : Window
         
         EndMenu.BeginAnimation(Grid.OpacityProperty, opacityAnimation2);
         EndMenu.Visibility = Visibility.Visible;
+    }
+
+    private void ShowSolution(object sender, RoutedEventArgs e)
+    {
+        if (!_sudokuScheme.IsSolutionShowing)
+        {
+            _sudokuScheme.IsSolutionShowing = true;
+            Task animation = _sudokuScheme.BacktrackingGraphics(_sudokuScheme.Fields);
+            
+            animation.ContinueWith(task =>
+            {
+                ButtonPossibleMoves.Visibility = Visibility.Collapsed;
+                ButtonHints.Visibility = Visibility.Collapsed;
+                ButtonShowSolution.Visibility = Visibility.Collapsed;
+                Hint.Visibility = Visibility.Collapsed;
+                RestartButton.Visibility = Visibility.Visible;
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
     }
 }

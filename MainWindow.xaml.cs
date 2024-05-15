@@ -165,17 +165,17 @@ public partial class MainWindow : Window
     {
         if (!_sudokuScheme.IsSolutionShowing)
         {
-            // foreach (var button in _sudokuScheme.FieldButtons.Values)
-            // {
-            //     if (_sudokuScheme.Fields[button.Name[5], button.Name[6]] == "0" ||
-            //         _sudokuScheme.Fields[button.Name[5], button.Name[6]] == "10")
-            //     {
-            //         button.Content = " ";
-            //     }
-            //     button.Background = Brushes.White;
-            //     button.Foreground = Brushes.Black;
-            //     button.FontSize = 30;
-            // }
+            foreach (var button in _sudokuScheme.FieldButtons.Values)
+            {
+                if (_sudokuScheme.Fields[Int32.Parse(button.Name[5].ToString()), Int32.Parse(button.Name[6].ToString())] == "0" ||
+                    _sudokuScheme.Fields[Int32.Parse(button.Name[5].ToString()), Int32.Parse(button.Name[6].ToString())] == "10")
+                {
+                    button.Content = " ";
+                }
+                button.Background = Brushes.White;
+                button.Foreground = Brushes.Black;
+                button.FontSize = 30;
+            }
             _sudokuScheme.IsSolutionShowing = true;
             Task animation = _sudokuScheme.BacktrackingGraphics(_sudokuScheme.Fields);
             

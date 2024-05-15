@@ -368,6 +368,8 @@ public class Scheme {
         // UPGRADE NEW SCHEME CONTENT
         foreach (var child in FieldButtons.Values)
         {
+            child.Content = Fields[Int32.Parse(child.Name[5].ToString()), Int32.Parse(child.Name[6].ToString())] == "0"
+                ? " " : Fields[Int32.Parse(child.Name[5].ToString()), Int32.Parse(child.Name[6].ToString())];
             child.Background = Brushes.White;
             child.Foreground = Brushes.Black;
             child.FontSize = 30;
@@ -396,6 +398,7 @@ public class Scheme {
                 await Task.Delay(200);
                 fields[row, column] = move;
                 FieldButtons[row.ToString() + column].Content = move;
+                FieldButtons[row.ToString() + column].Foreground = Brushes.ForestGreen;
                 
                 if (await BacktrackingGraphics(fields, row, column + 1))
                 {

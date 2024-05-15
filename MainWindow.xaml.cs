@@ -39,6 +39,7 @@ public partial class MainWindow : Window
         
         var moveAnimation = (Storyboard)FindResource("MoveAnimationText");
         var moveAnimation2 = (Storyboard)FindResource("MoveAnimationButton");
+        
         moveAnimation.Begin();
         moveAnimation2.Begin();
     }

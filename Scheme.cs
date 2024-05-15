@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows.Markup;
 
 namespace Sudoku_2024;
 
@@ -194,6 +195,7 @@ public class Scheme {
             {
                 _currentButton.Content = SudokuAlgo.GiveHint(intClickedRow, intClickedColumn, Fields);
                 _currentButton.Foreground = Brushes.Black;
+                _currentButton.FontSize = 30;
 
                 Fields[intClickedRow, intClickedColumn] = _currentButton.Content.ToString();
             
@@ -217,14 +219,20 @@ public class Scheme {
     }
     
     // BUTTON SETTINGS..................................................................................................
-    private void ButtonProperties(Button newBut, Brush backColor, Brush foreColor, int thickness)
+    private void ButtonProperties(Button newBut, Brush? backColor, Brush? foreColor, int thickness)
     {
         newBut.VerticalAlignment = VerticalAlignment.Center;
         newBut.HorizontalAlignment = HorizontalAlignment.Center;
         newBut.FontSize = 30;
         newBut.FontFamily = new FontFamily("Comic Sans Ms");
-        newBut.Background = backColor;
-        newBut.Foreground = foreColor;
+        if (backColor is not null)
+        {
+            newBut.Background = backColor;
+        }
+        if (foreColor is not null)
+        {
+            newBut.Foreground = foreColor;
+        }
         newBut.Width = 60;
         newBut.Height = 60;
         newBut.BorderBrush = Brushes.Black;
@@ -316,8 +324,9 @@ public class Scheme {
             
             Grid.SetRow(newButton, i+1);
             Grid.SetColumn(newButton, 0);
-
-            ButtonProperties(newButton, Brushes.DarkCyan, Brushes.Ivory, 4);
+            
+            ButtonProperties(newButton, null, null, 4);
+            newButton.Template = (ControlTemplate)Application.Current.MainWindow.FindResource("InputButtons");
             newButton.Click += EnterButtonClicked;
             
             myGrid.Children.Add(newButton);

@@ -20,6 +20,26 @@
                 Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
                 From="550" To="0" Duration="0:0:1" BeginTime="0:0:1.5"/>
         </Storyboard>
+        
+        <ControlTemplate x:Key="InputButtons" TargetType="Button">  
+            <Border Background="{TemplateBinding Background}"  
+                    BorderBrush="{TemplateBinding BorderBrush}"  
+                    BorderThickness="{TemplateBinding BorderThickness}">  
+                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"  
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />  
+            </Border>  
+  
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="CadetBlue"/>
+                    <Setter Property="Foreground" Value="Moccasin"></Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Background" Value="DarkCyan"/>
+                    <Setter Property="Foreground" Value="Ivory"></Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>  
+        </ControlTemplate>
     </Window.Resources>
     
     <Grid>

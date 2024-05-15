@@ -100,7 +100,6 @@ public static class SudokuAlgo
         }
         return false;
     }
-    
     public static bool IsWin(string[,] array)
     {
         int rows = array.GetLength(0);

@@ -75,7 +75,10 @@ public static class SudokuAlgo
         if (fields[row, column] == "0" || fields[row,column] == "10")
         {
             List<string> possibleMoves = GetPossibleMoves(row, column, fields);
-            foreach (var move in possibleMoves)
+            Random rng = new Random();
+            var randomizedList = possibleMoves.OrderBy(_ => rng.Next()).ToList();
+            
+            foreach (var move in randomizedList)
             {
                 fields[row, column] = move;
                 if (Backtracking(fields, row, column + 1))
@@ -91,7 +94,7 @@ public static class SudokuAlgo
 
         return Backtracking(fields, row, column + 1);
     }
-
+    
     public static bool SolveSudoku(string[,] fields)
     {
         if (Backtracking(fields))
@@ -134,5 +137,45 @@ public static class SudokuAlgo
         }
 
         return "";
+    }
+    
+    
+    // FOR MAP GENERATOR................................................................................................
+    private static bool _hasOneSolution;
+    private static bool _hasMultiplySolution;
+    public static bool HasMultiSolutions(string[,] board) {
+        _hasOneSolution = false;
+        _hasMultiplySolution = false;
+        string[,] temp = new string[9,9];
+        Array.Copy(board, temp, board.Length);
+        Solve(temp, 0, 0);
+        return _hasMultiplySolution;
+    }
+    private static void Solve(string[,] board, int row, int col) {
+        if (row == 9)
+        {
+            if (_hasOneSolution)
+            {
+                _hasMultiplySolution = true;
+            }
+            _hasOneSolution = true;
+            return;
+        }
+        if (col == 9) {
+            Solve(board, row + 1, 0);
+            return;
+        }
+        if (board[row, col] != "0") {
+            Solve(board, row, col + 1);
+            return;
+        }
+
+        foreach (var move in GetPossibleMoves(row, col, board))
+        {
+            board[row, col] = move;
+            Solve(board, row, col + 1);
+            if (_hasMultiplySolution) return; // If multiple solutions found, exit early
+            board[row, col] = "0";
+        }
     }
 }

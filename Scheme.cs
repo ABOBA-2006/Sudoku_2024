@@ -14,6 +14,8 @@ public class Scheme {
     private int _hints = 0;
     
     public bool IsSolutionShowing = false;
+    
+    public bool IsSolutionShowingEnd = false;
 
     public bool ToShowPossibleMoves = false;
 
@@ -28,7 +30,7 @@ public class Scheme {
         set;
     } = new string[Size, Size];
 
-    private Dictionary<string, Button> FieldButtons = new Dictionary<string, Button>();
+    public Dictionary<string, Button> FieldButtons = new Dictionary<string, Button>();
 
 
     // CODE THAT RESPOND FOR LIGHTING BUTTONS WITH THE SAME CONTENT.....................................................
@@ -36,50 +38,53 @@ public class Scheme {
     {
         int intClickedRow = Int32.Parse(clickedRow.ToString());
         int intClickedColumn = Int32.Parse(clickedColumn.ToString());
-            
-        foreach (var button in FieldButtons.Values)
+
+        if (!IsSolutionShowing || IsSolutionShowingEnd)
         {
-            if (Fields[intClickedRow, intClickedColumn] == "10")
+            foreach (var button in FieldButtons.Values)
             {
-                if (button.Name[5] == clickedRow || button.Name[6] == clickedColumn ||
-                    (Int32.Parse(button.Name[5].ToString()) / 3 == intClickedRow / 3 
-                     && Int32.Parse(button.Name[6].ToString()) / 3 == intClickedColumn / 3))
+                if (Fields[intClickedRow, intClickedColumn] == "10")
                 {
-                    if (button.Content.ToString() == clickedContent && 
-                        !(clickedRow == button.Name[5] && clickedColumn == button.Name[6]))
+                    if (button.Name[5] == clickedRow || button.Name[6] == clickedColumn ||
+                        (Int32.Parse(button.Name[5].ToString()) / 3 == intClickedRow / 3 
+                         && Int32.Parse(button.Name[6].ToString()) / 3 == intClickedColumn / 3))
                     {
-                        button.Background = Brushes.LightSalmon;
+                        if (button.Content.ToString() == clickedContent && 
+                            !(clickedRow == button.Name[5] && clickedColumn == button.Name[6]))
+                        {
+                            button.Background = Brushes.LightSalmon;
+                            continue;
+                        }
+                    }
+                }
+                if (Fields[Int32.Parse(button.Name[5].ToString()), Int32.Parse(button.Name[6].ToString())] == "10")
+                {
+                    button.Background = Brushes.Salmon;
+                    continue;
+                }
+                if (button.Content.ToString() == clickedContent && button.Content.ToString() != " " && 
+                    !(clickedRow == button.Name[5] && clickedColumn == button.Name[6]) )
+                {
+                    if (Fields[intClickedRow, intClickedColumn] != "0" )
+                    {
+                        button.Background = Brushes.CornflowerBlue;
                         continue;
                     }
                 }
-            }
-            if (Fields[Int32.Parse(button.Name[5].ToString()), Int32.Parse(button.Name[6].ToString())] == "10")
-            {
-                button.Background = Brushes.Salmon;
-                continue;
-            }
-            if (button.Content.ToString() == clickedContent && button.Content.ToString() != " " && 
-                !(clickedRow == button.Name[5] && clickedColumn == button.Name[6]) )
-            {
-                if (Fields[intClickedRow, intClickedColumn] != "0" )
-                {
-                    button.Background = Brushes.CornflowerBlue;
-                    continue;
-                }
-            }
         
-            if (button.Name[5] == clickedRow && button.Name[6] == clickedColumn)
-            {
-                button.Background = Brushes.LightSkyBlue;
-            } else if (button.Name[5] == clickedRow || button.Name[6] == clickedColumn ||
-                       (Int32.Parse(button.Name[5].ToString()) / 3 == intClickedRow / 3 
-                        && Int32.Parse(button.Name[6].ToString()) / 3 == intClickedColumn / 3))
-            {
-                button.Background = Brushes.LightBlue;
-            } else
-            {
-                button.Background = Brushes.White;
-            }
+                if (button.Name[5] == clickedRow && button.Name[6] == clickedColumn)
+                {
+                    button.Background = Brushes.LightSkyBlue;
+                } else if (button.Name[5] == clickedRow || button.Name[6] == clickedColumn ||
+                           (Int32.Parse(button.Name[5].ToString()) / 3 == intClickedRow / 3 
+                            && Int32.Parse(button.Name[6].ToString()) / 3 == intClickedColumn / 3))
+                {
+                    button.Background = Brushes.LightBlue;
+                } else
+                {
+                    button.Background = Brushes.White;
+                }
+            } 
         }
     }
     
@@ -339,7 +344,7 @@ public class Scheme {
     }
     
     // RESTART FUNCTION.................................................................................................
-    public void Restart(string[,] schemeFromFile)
+    public void Restart()
     {
         _hints = 0;
         _mistakes = 0;
@@ -357,38 +362,18 @@ public class Scheme {
         _wasFirstClick = false;
         IsSolutionShowing = false;
         _currentButton = new Button();
-        Fields = schemeFromFile;
+        Fields = Files.Read();
         ToShowPossibleMoves = false;
 
         // UPGRADE NEW SCHEME CONTENT
-        int k1 = 0;
-        int k2 = 0;
         foreach (var child in FieldButtons.Values)
         {
-            if (k2 == 9)
-            {
-                k2 = 0;
-                k1 += 1;
-            }
-            
-            if (k1 == 9)
-            {
-                return;
-            }
-
-            if (Fields[k1, k2] == "0")
-            {
-                child.Content = " "; 
-            }
-            else
-            {
-                child.Content = Fields[k1, k2];
-            }
-            
             child.Background = Brushes.White;
-            
-            k2 += 1;
+            child.Foreground = Brushes.Black;
+            child.FontSize = 30;
         }
+        
+        MapGenerator.WriteIntoFile();
     }
     
     // SHOW BACKTRACKING ANIMATION......................................................................................

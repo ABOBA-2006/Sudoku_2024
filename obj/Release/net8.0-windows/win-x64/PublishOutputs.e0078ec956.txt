@@ -1,0 +1,3 @@
+C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\bin\Release\net8.0-windows\win-x64\publish\Sudoku_2024.pdb
+C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\bin\Release\net8.0-windows\win-x64\publish\schemes\scheme.txt
+C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\bin\Release\net8.0-windows\win-x64\publish\Sudoku_2024.exe

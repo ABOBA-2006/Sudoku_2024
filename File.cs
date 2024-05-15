@@ -6,6 +6,7 @@ public static class Files
 {
     public static string[,] Read()
     {
+        MapGenerator.WriteIntoFile();
         // TODO change for a dynamic folder location
         const string fileName = "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\schemes\\scheme.txt"; 
         

@@ -4,15 +4,15 @@
 winexe
 C#
 .cs
-C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\obj\Debug\net8.0-windows\
+C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\obj\Release\net8.0-windows\win-x64\
 Sudoku_2024
 none
 false
-TRACE;DEBUG;NET;NET8_0;NETCOREAPP
+TRACE;RELEASE;NET;NET8_0;NETCOREAPP
 C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\App.xaml
 11407045341
 
-7-1633840128
+62013761767
 198915248976
 MainWindow.xaml;
 

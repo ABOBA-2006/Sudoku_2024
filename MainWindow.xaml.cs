@@ -98,7 +98,7 @@ public partial class MainWindow : Window
     {
         string[,] schemeFromFile = Files.Read();
         
-        _sudokuScheme.Restart(schemeFromFile);
+        _sudokuScheme.Restart();
         
         DoubleAnimation opacityAnimation2 = new DoubleAnimation();
         opacityAnimation2.From = 0;
@@ -165,11 +165,23 @@ public partial class MainWindow : Window
     {
         if (!_sudokuScheme.IsSolutionShowing)
         {
+            // foreach (var button in _sudokuScheme.FieldButtons.Values)
+            // {
+            //     if (_sudokuScheme.Fields[button.Name[5], button.Name[6]] == "0" ||
+            //         _sudokuScheme.Fields[button.Name[5], button.Name[6]] == "10")
+            //     {
+            //         button.Content = " ";
+            //     }
+            //     button.Background = Brushes.White;
+            //     button.Foreground = Brushes.Black;
+            //     button.FontSize = 30;
+            // }
             _sudokuScheme.IsSolutionShowing = true;
             Task animation = _sudokuScheme.BacktrackingGraphics(_sudokuScheme.Fields);
             
             animation.ContinueWith(task =>
             {
+                _sudokuScheme.IsSolutionShowingEnd = true;
                 ButtonPossibleMoves.Visibility = Visibility.Collapsed;
                 ButtonHints.Visibility = Visibility.Collapsed;
                 ButtonShowSolution.Visibility = Visibility.Collapsed;

@@ -1,0 +1,8 @@
+C:\Users\anton\OneDrive\Рабочий стол\Sudoku_2024.pdb
+C:\Users\anton\OneDrive\Рабочий стол\schemes\scheme.txt
+C:\Users\anton\OneDrive\Рабочий стол\D3DCompiler_47_cor3.dll
+C:\Users\anton\OneDrive\Рабочий стол\PenImc_cor3.dll
+C:\Users\anton\OneDrive\Рабочий стол\PresentationNative_cor3.dll
+C:\Users\anton\OneDrive\Рабочий стол\vcruntime140_cor3.dll
+C:\Users\anton\OneDrive\Рабочий стол\wpfgfx_cor3.dll
+C:\Users\anton\OneDrive\Рабочий стол\Sudoku_2024.exe

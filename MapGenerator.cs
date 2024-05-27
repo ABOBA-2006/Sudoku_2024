@@ -7,6 +7,7 @@ public static class MapGenerator
 
     private const int Size = 9;
     private  static readonly string[,] Field = new string[Size,Size];
+    private  static string[,] _answerField = new string[Size,Size];
 
     private static void CreateScheme()
     {
@@ -25,6 +26,8 @@ public static class MapGenerator
         Field[i, j] = value;
 
         SudokuAlgo.SolveSudoku(Field);
+        _answerField = Field.Clone() as string[,] ?? throw new InvalidOperationException();
+        
         while (!SudokuAlgo.HasMultiSolutions(Field))
         {
             i = rand.Next(0, Size);
@@ -40,8 +43,10 @@ public static class MapGenerator
     {
         CreateScheme();
         const string fileName = "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\schemes\\scheme.txt";
+        const string fileAnswerName = "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\schemes\\scheme_solved.txt";
 
         using StreamWriter writer = new StreamWriter(fileName);
+        using StreamWriter writer2 = new StreamWriter(fileAnswerName);
         for (int i = 0; i < Size; i++)
         {
             for (int j = 0; j < Size; j++)
@@ -49,14 +54,17 @@ public static class MapGenerator
                 if (j != Size - 1)
                 {
                     writer.Write(Field[i, j] + " ");
+                    writer2.Write(_answerField[i, j] + " ");
                 }
                 else
                 {
                     writer.Write(Field[i, j]);
+                    writer2.Write(_answerField[i, j]);
                 }
                 
             }
             writer.WriteLine();
+            writer2.WriteLine();
         }
     }
 }

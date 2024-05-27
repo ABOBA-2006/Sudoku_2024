@@ -16,10 +16,11 @@ public partial class MainWindow : Window
         InitializeComponent();
 
         Grid myGrid = MainGrid;
-
-        string[,] schemeFromFile = Files.Read();
+        
+        (string[,] schemeFromFile, string[,] schemeAnswer) = Files.Read();
         
         _sudokuScheme.Fields = schemeFromFile;
+        _sudokuScheme.SolvedFields = schemeAnswer;
         _sudokuScheme.CreateFields(myGrid);
         _sudokuScheme.CreateInputButtons(myGrid);
     }
@@ -96,8 +97,6 @@ public partial class MainWindow : Window
 
     private void RestartButtonClicked(object sender, RoutedEventArgs e)
     {
-        string[,] schemeFromFile = Files.Read();
-        
         _sudokuScheme.Restart();
         
         DoubleAnimation opacityAnimation2 = new DoubleAnimation();
@@ -178,6 +177,24 @@ public partial class MainWindow : Window
             }
             _sudokuScheme.IsSolutionShowing = true;
             Task animation = _sudokuScheme.BacktrackingGraphics(_sudokuScheme.Fields);
+            
+            animation.ContinueWith(task =>
+            {
+                if (_sudokuScheme.IsSolutionShowing)
+                {
+                    _sudokuScheme.IsSolutionShowingEnd = true;
+                    ButtonPossibleMoves.Visibility = Visibility.Collapsed;
+                    ButtonHints.Visibility = Visibility.Collapsed;
+                    ButtonShowSolution.Visibility = Visibility.Collapsed;
+                    Hint.Visibility = Visibility.Collapsed;
+                    RestartButton.Visibility = Visibility.Visible;
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+        else
+        {
+            _sudokuScheme.IsSolutionShowing = false;
+            Task animation = _sudokuScheme.DrawSolution();
             
             animation.ContinueWith(task =>
             {

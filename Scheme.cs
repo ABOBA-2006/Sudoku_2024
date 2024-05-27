@@ -37,8 +37,8 @@ public class Scheme {
     } = new string[Size, Size];
 
     public readonly Dictionary<string, Button> FieldButtons = new Dictionary<string, Button>();
-    
-    public Dictionary<string, Button> PossibleMovesDict = new Dictionary<string, Button>();
+
+    private readonly Dictionary<string, Button> _possibleMovesDict = new Dictionary<string, Button>();
 
 
     // CODE THAT RESPOND FOR LIGHTING BUTTONS WITH THE SAME CONTENT.....................................................
@@ -119,7 +119,7 @@ public class Scheme {
                 
         clickedButton.Content = possibleMovesString;
 
-        PossibleMovesDict[row.ToString() + column] = clickedButton;
+        _possibleMovesDict[row.ToString() + column] = clickedButton;
     }
     
     // BUTTON CLICK FUNCTION............................................................................................
@@ -160,7 +160,7 @@ public class Scheme {
 
                 if (Fields[currentRow, currentColumn] == "0" || Fields[currentRow, currentColumn] == "10")
                 {
-                    PossibleMovesDict.Remove(currentRow.ToString() + currentColumn);
+                    _possibleMovesDict.Remove(currentRow.ToString() + currentColumn);
                     
                     _currentButton.FontSize = 30;
                     _currentButton.Content = button.Content;
@@ -184,7 +184,7 @@ public class Scheme {
                         }
                         else
                         {
-                            foreach (var element in PossibleMovesDict)
+                            foreach (var element in _possibleMovesDict)
                             {
                                 SetPossibleMoves(element.Value, Int32.Parse(element.Key[0].ToString()),
                                     Int32.Parse(element.Key[1].ToString()));
@@ -222,7 +222,7 @@ public class Scheme {
             {
                 if (_hints != 3)
                 {
-                    PossibleMovesDict.Remove(intClickedRow.ToString() + intClickedColumn);
+                    _possibleMovesDict.Remove(intClickedRow.ToString() + intClickedColumn);
                     
                     _currentButton.Content = SolvedFields[intClickedRow, intClickedColumn];
                     _currentButton.Foreground = Brushes.Black;
@@ -242,7 +242,7 @@ public class Scheme {
                     }
                     else
                     {
-                        foreach (var element in PossibleMovesDict)
+                        foreach (var element in _possibleMovesDict)
                         {
                             SetPossibleMoves(element.Value, Int32.Parse(element.Key[0].ToString()),
                                 Int32.Parse(element.Key[1].ToString()));

@@ -7,7 +7,7 @@ using System.Windows.Shapes;
 
 namespace Sudoku_2024;
 
-public partial class MainWindow : Window
+public partial class MainWindow
 {
     private readonly Scheme _sudokuScheme = new Scheme();
     
@@ -31,10 +31,12 @@ public partial class MainWindow : Window
     }
     private void SmoothAppearance()
     {
-        DoubleAnimation opacityAnimation = new DoubleAnimation();
-        opacityAnimation.From = 0;
-        opacityAnimation.To = 1;
-        opacityAnimation.Duration = TimeSpan.FromSeconds(2);
+        DoubleAnimation opacityAnimation = new DoubleAnimation
+        {
+            From = 0,
+            To = 1,
+            Duration = TimeSpan.FromSeconds(2)
+        };
 
         StartGrid.BeginAnimation(Grid.OpacityProperty, opacityAnimation);
         
@@ -79,18 +81,22 @@ public partial class MainWindow : Window
 
     private void StartButtonClicked(object sender, RoutedEventArgs e)
     {
-        DoubleAnimation opacityAnimation = new DoubleAnimation();
-        opacityAnimation.From = 1;
-        opacityAnimation.To = 0;
-        opacityAnimation.Duration = TimeSpan.FromSeconds(2);
-        
+        DoubleAnimation opacityAnimation = new DoubleAnimation
+        {
+            From = 1,
+            To = 0,
+            Duration = TimeSpan.FromSeconds(2)
+        };
+
         StartGrid.BeginAnimation(Grid.OpacityProperty, opacityAnimation);
         
-        DoubleAnimation opacityAnimation2 = new DoubleAnimation();
-        opacityAnimation2.From = 0;
-        opacityAnimation2.To = 1;
-        opacityAnimation2.Duration = TimeSpan.FromSeconds(4);
-        
+        DoubleAnimation opacityAnimation2 = new DoubleAnimation
+        {
+            From = 0,
+            To = 1,
+            Duration = TimeSpan.FromSeconds(4)
+        };
+
         MainGrid.BeginAnimation(Grid.OpacityProperty, opacityAnimation2);
         MainGrid.Visibility=Visibility.Visible;
     }
@@ -99,11 +105,13 @@ public partial class MainWindow : Window
     {
         _sudokuScheme.Restart();
         
-        DoubleAnimation opacityAnimation2 = new DoubleAnimation();
-        opacityAnimation2.From = 0;
-        opacityAnimation2.To = 1;
-        opacityAnimation2.Duration = TimeSpan.FromSeconds(2);
-        
+        DoubleAnimation opacityAnimation2 = new DoubleAnimation
+        {
+            From = 0,
+            To = 1,
+            Duration = TimeSpan.FromSeconds(2)
+        };
+
         EndMenu.Visibility=Visibility.Collapsed;
         
         MainGrid.BeginAnimation(Grid.OpacityProperty, opacityAnimation2);
@@ -149,11 +157,13 @@ public partial class MainWindow : Window
             RestartButtonLoose.Visibility = Visibility.Visible;
         }
         
-        DoubleAnimation opacityAnimation2 = new DoubleAnimation();
-        opacityAnimation2.From = 0;
-        opacityAnimation2.To = 1;
-        opacityAnimation2.Duration = TimeSpan.FromSeconds(3);
-        
+        DoubleAnimation opacityAnimation2 = new DoubleAnimation
+        {
+            From = 0,
+            To = 1,
+            Duration = TimeSpan.FromSeconds(3)
+        };
+
         MainGrid.Visibility=Visibility.Collapsed;
         
         EndMenu.BeginAnimation(Grid.OpacityProperty, opacityAnimation2);
@@ -178,7 +188,7 @@ public partial class MainWindow : Window
             _sudokuScheme.IsSolutionShowing = true;
             Task animation = _sudokuScheme.BacktrackingGraphics(_sudokuScheme.Fields);
             
-            animation.ContinueWith(task =>
+            animation.ContinueWith(_ =>
             {
                 if (_sudokuScheme.IsSolutionShowing)
                 {
@@ -196,7 +206,7 @@ public partial class MainWindow : Window
             _sudokuScheme.IsSolutionShowing = false;
             Task animation = _sudokuScheme.DrawSolution();
             
-            animation.ContinueWith(task =>
+            animation.ContinueWith(_ =>
             {
                 _sudokuScheme.IsSolutionShowingEnd = true;
                 ButtonPossibleMoves.Visibility = Visibility.Collapsed;

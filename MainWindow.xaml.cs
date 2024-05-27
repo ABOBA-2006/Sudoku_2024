@@ -124,7 +124,7 @@ public partial class MainWindow : Window
             }
             
             Result.Foreground = Brushes.Green;
-            Result.Text = "YOU WIN";
+            Result.Text = "YOU WON";
             
             BorderEdge.BorderBrush = Brushes.Green;
             
@@ -142,7 +142,7 @@ public partial class MainWindow : Window
             }
             
             Result.Foreground = Brushes.DarkRed;
-            Result.Text = "YOU LOOSE";
+            Result.Text = "YOU LOST";
             
             BorderEdge.BorderBrush = Brushes.DarkRed;
             

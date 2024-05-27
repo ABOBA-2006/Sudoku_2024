@@ -55,7 +55,7 @@
                     </Grid.RenderTransform>
                     <StackPanel>
                         <TextBlock TextAlignment="Center" FontFamily="Comic Sans Ms" FontSize="60">THE SUDOKU GAME</TextBlock>
-                        <TextBlock TextAlignment="Right" Margin="0,0,50,0" FontFamily="Comic Sans Ms" FontSize="20" >Made by Zero Two  </TextBlock>
+                        <TextBlock TextAlignment="Right" Margin="0,0,50,0" FontFamily="Comic Sans Ms" FontSize="20" >Made by Andrutskyi Anton IP-34  </TextBlock>
                     </StackPanel>
                 </Grid>
                 
@@ -246,7 +246,7 @@
             <StackPanel VerticalAlignment="Center">
                 <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="60" 
                             FontFamily="Comic Sans Ms" Foreground="DarkRed" Name = "Result">
-                    YOU LOOSE
+                    YOU LOST
                 </TextBlock>
                 <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" 
                             FontFamily="Comic Sans Ms" Foreground="SlateGray">

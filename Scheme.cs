@@ -17,6 +17,8 @@ public class Scheme {
     
     public bool IsSolutionShowingEnd = false;
 
+    public bool SkippingSolutionShowing = false;
+
     public bool ToShowPossibleMoves = false;
 
     private Grid _mainGrid = new Grid();
@@ -389,6 +391,8 @@ public class Scheme {
         mainWindow.HintLack.Visibility = Visibility.Collapsed;
         
         mainWindow.ButtonPossibleMoves.Visibility = Visibility.Visible;
+        mainWindow.ButtonPossibleMoves.Background = Brushes.LightBlue;
+        mainWindow.ButtonPossibleMoves.Foreground = Brushes.Black;
         mainWindow.ButtonHints.Visibility = Visibility.Visible;
         mainWindow.ButtonShowSolution.Visibility = Visibility.Visible;
         mainWindow.Hint.Visibility = Visibility.Visible;
@@ -396,9 +400,12 @@ public class Scheme {
         
         _wasFirstClick = false;
         IsSolutionShowing = false;
+        IsSolutionShowingEnd = false;
+        SkippingSolutionShowing = false;
         _currentButton = new Button();
         (Fields, SolvedFields) = Files.Read();
         ToShowPossibleMoves = false;
+        _possibleMovesDict.Clear();
 
         // UPGRADE NEW SCHEME CONTENT
         foreach (var child in FieldButtons.Values)
@@ -416,7 +423,7 @@ public class Scheme {
     // SHOW BACKTRACKING ANIMATION......................................................................................
     public async Task<bool> BacktrackingGraphics(string[,] fields, int row=0, int column=0)
     {
-        if (!IsSolutionShowing)
+        if (SkippingSolutionShowing)
         {
             return true;
         }
@@ -444,7 +451,7 @@ public class Scheme {
                     return true;
                 }
 
-                if (IsSolutionShowing)
+                if (!SkippingSolutionShowing)
                 {
                     FieldButtons[row.ToString() + column].Background = Brushes.Salmon;
                     await Task.Delay(300);
@@ -466,7 +473,7 @@ public class Scheme {
         {
             for (var j = 0; j < Size; j++)
             {
-                if ((string)FieldButtons[i.ToString() + j].Content == " " ||
+                if (FieldButtons[i.ToString() + j].Content.ToString() == " " ||
                     FieldButtons[i.ToString() + j].Foreground == Brushes.ForestGreen)
                 {
                     await Task.Delay(50);

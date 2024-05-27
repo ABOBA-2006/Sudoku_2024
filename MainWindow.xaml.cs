@@ -190,7 +190,7 @@ public partial class MainWindow
             
             animation.ContinueWith(_ =>
             {
-                if (_sudokuScheme.IsSolutionShowing)
+                if (!_sudokuScheme.SkippingSolutionShowing)
                 {
                     _sudokuScheme.IsSolutionShowingEnd = true;
                     ButtonPossibleMoves.Visibility = Visibility.Collapsed;
@@ -203,7 +203,7 @@ public partial class MainWindow
         }
         else
         {
-            _sudokuScheme.IsSolutionShowing = false;
+            _sudokuScheme.SkippingSolutionShowing = true;
             Task animation = _sudokuScheme.DrawSolution();
             
             animation.ContinueWith(_ =>

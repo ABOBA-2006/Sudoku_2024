@@ -36,7 +36,9 @@ public class Scheme {
         set;
     } = new string[Size, Size];
 
-    public Dictionary<string, Button> FieldButtons = new Dictionary<string, Button>();
+    public readonly Dictionary<string, Button> FieldButtons = new Dictionary<string, Button>();
+    
+    public Dictionary<string, Button> PossibleMovesDict = new Dictionary<string, Button>();
 
 
     // CODE THAT RESPOND FOR LIGHTING BUTTONS WITH THE SAME CONTENT.....................................................
@@ -93,6 +95,32 @@ public class Scheme {
             } 
         }
     }
+
+    
+    // SETTING POSSIBLE MOVES TO THE BUTTON CONTENT.....................................................................
+    private void SetPossibleMoves(Button clickedButton, int row, int column)
+    {
+        string[] possibleMoves = SudokuAlgo.GetPossibleMoves(row, column, Fields).ToArray();
+        clickedButton.FontSize = 10;
+        clickedButton.Foreground = Brushes.Gray;
+        string possibleMovesString = "";
+
+        int counter = 1;
+        foreach (var symbol in possibleMoves)
+        {
+            if (counter % 3 == 1 && counter!=1)
+            {
+                possibleMovesString += "\n";
+            }
+                    
+            possibleMovesString += symbol + ' ';
+            counter++;
+        }
+                
+        clickedButton.Content = possibleMovesString;
+
+        PossibleMovesDict[row.ToString() + column] = clickedButton;
+    }
     
     // BUTTON CLICK FUNCTION............................................................................................
     private void FieldButtonClicked(object sender, RoutedEventArgs e)
@@ -115,24 +143,7 @@ public class Scheme {
             // CODE THAT RESPOND FOR SHOWING POSSIBLE MOVES (miniHINT)..................................................
             if (Fields[intClickedRow, intClickedColumn] == "0" && ToShowPossibleMoves && !IsSolutionShowing)
             {
-                string[] possibleMoves = SudokuAlgo.GetPossibleMoves(intClickedRow, intClickedColumn, Fields).ToArray();
-                clickedButton.FontSize = 10;
-                clickedButton.Foreground = Brushes.Gray;
-                string possibleMovesString = "";
-
-                int counter = 1;
-                foreach (var symbol in possibleMoves)
-                {
-                    if (counter % 3 == 1 && counter!=1)
-                    {
-                        possibleMovesString += "\n";
-                    }
-                    
-                    possibleMovesString += symbol + ' ';
-                    counter++;
-                }
-                
-                clickedButton.Content = possibleMovesString;
+                SetPossibleMoves(clickedButton, intClickedRow, intClickedColumn);
             }
         }
         
@@ -149,6 +160,8 @@ public class Scheme {
 
                 if (Fields[currentRow, currentColumn] == "0" || Fields[currentRow, currentColumn] == "10")
                 {
+                    PossibleMovesDict.Remove(currentRow.ToString() + currentColumn);
+                    
                     _currentButton.FontSize = 30;
                     _currentButton.Content = button.Content;
                     
@@ -164,9 +177,18 @@ public class Scheme {
                                             Fields[currentRow, currentColumn]);
                         
                         var mainWindow = (MainWindow)Application.Current.MainWindow;
+                        
                         if (SudokuAlgo.IsWin(Fields))
                         {
                             mainWindow.EndAnimation("win");
+                        }
+                        else
+                        {
+                            foreach (var element in PossibleMovesDict)
+                            {
+                                SetPossibleMoves(element.Value, Int32.Parse(element.Key[0].ToString()),
+                                    Int32.Parse(element.Key[1].ToString()));
+                            }
                         }
                     }
                     else
@@ -200,6 +222,8 @@ public class Scheme {
             {
                 if (_hints != 3)
                 {
+                    PossibleMovesDict.Remove(intClickedRow.ToString() + intClickedColumn);
+                    
                     _currentButton.Content = SolvedFields[intClickedRow, intClickedColumn];
                     _currentButton.Foreground = Brushes.Black;
                     _currentButton.FontSize = 30;
@@ -215,6 +239,14 @@ public class Scheme {
                     if (SudokuAlgo.IsWin(Fields))
                     {
                         mainWindow.EndAnimation("win");
+                    }
+                    else
+                    {
+                        foreach (var element in PossibleMovesDict)
+                        {
+                            SetPossibleMoves(element.Value, Int32.Parse(element.Key[0].ToString()),
+                                Int32.Parse(element.Key[1].ToString()));
+                        }
                     }
                 }
                 else
@@ -429,7 +461,7 @@ public class Scheme {
     }
     public async Task DrawSolution()
     {
-        await Task.Delay(100);
+        await Task.Delay(200);
         for (var i = 0; i < Size; i++)
         {
             for (var j = 0; j < Size; j++)

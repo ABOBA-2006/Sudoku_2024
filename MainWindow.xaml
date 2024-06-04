@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Icon="C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\Flag_of_Ukraine.png"
+        Icon="Flag_of_Ukraine.png"
         Title="SUDOKU" Height="780" Width="780" ResizeMode="NoResize" Loaded="MainWindow_Loaded">
     
     <Window.Resources>

@@ -13,21 +13,19 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\Sudoku_2024.csproj",
+      "projectUniqueName": "A:\\JetBrains Rider 2023.3.3\\Sudoku_2024\\Sudoku_2024.csproj",
       "projectName": "Sudoku_2024",
-      "projectPath": "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\Sudoku_2024.csproj",
+      "projectPath": "A:\\JetBrains Rider 2023.3.3\\Sudoku_2024\\Sudoku_2024.csproj",
       "packagesPath": "C:\\Users\\anton\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\obj\\",
+      "outputPath": "A:\\JetBrains Rider 2023.3.3\\Sudoku_2024\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\anton\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\anton\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0-windows"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -64,7 +62,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Users\\anton\\.dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

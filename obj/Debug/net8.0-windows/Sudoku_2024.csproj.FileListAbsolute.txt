@@ -18,3 +18,23 @@ C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\obj\Debug\net8.0-windows\Su
 C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024.genruntimeconfig.cache
 C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\obj\Debug\net8.0-windows\ref\Sudoku_2024.dll
 C:\Users\anton\RiderProjects\Sudoku_2024\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024.sourcelink.json
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\bin\Debug\net8.0-windows\Sudoku_2024.exe
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\bin\Debug\net8.0-windows\Sudoku_2024.deps.json
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\bin\Debug\net8.0-windows\Sudoku_2024.runtimeconfig.json
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\bin\Debug\net8.0-windows\Sudoku_2024.dll
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\bin\Debug\net8.0-windows\Sudoku_2024.pdb
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\MainWindow.baml
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\MainWindow.g.cs
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\App.g.cs
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024_MarkupCompile.cache
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024.g.resources
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024.GeneratedMSBuildEditorConfig.editorconfig
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024.AssemblyInfoInputs.cache
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024.AssemblyInfo.cs
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024.csproj.CoreCompileInputs.cache
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024.sourcelink.json
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024.dll
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\refint\Sudoku_2024.dll
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024.pdb
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\Sudoku_2024.genruntimeconfig.cache
+A:\JetBrains Rider 2023.3.3\Sudoku_2024\obj\Debug\net8.0-windows\ref\Sudoku_2024.dll

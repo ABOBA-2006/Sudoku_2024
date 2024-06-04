@@ -9,9 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <None Update="schemes\scheme.txt">
-        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      </None>
+      <None Remove="Flag_of_Ukraine.png" />
+      <Resource Include="Flag_of_Ukraine.png" />
     </ItemGroup>
 
 </Project>

@@ -10,7 +10,7 @@
 
     <ItemGroup>
       <None Update="schemes\scheme.txt">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </None>
     </ItemGroup>
 

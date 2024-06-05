@@ -441,8 +441,11 @@ public class Scheme {
             {
                 await Task.Delay(200);
                 fields[row, column] = move;
-                FieldButtons[row.ToString() + column].Content = move;
-                FieldButtons[row.ToString() + column].Foreground = Brushes.ForestGreen;
+                if (!SkippingSolutionShowing)
+                {
+                    FieldButtons[row.ToString() + column].Content = move;
+                    FieldButtons[row.ToString() + column].Foreground = Brushes.ForestGreen;
+                }
                 
                 if (await BacktrackingGraphics(fields, row, column + 1))
                 {

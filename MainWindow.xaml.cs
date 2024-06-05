@@ -197,6 +197,7 @@ public partial class MainWindow
                     ButtonHints.Visibility = Visibility.Collapsed;
                     ButtonShowSolution.Visibility = Visibility.Collapsed;
                     Hint.Visibility = Visibility.Collapsed;
+                    HintLack.Visibility = Visibility.Collapsed;
                     RestartButton.Visibility = Visibility.Visible;
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
@@ -213,6 +214,7 @@ public partial class MainWindow
                 ButtonHints.Visibility = Visibility.Collapsed;
                 ButtonShowSolution.Visibility = Visibility.Collapsed;
                 Hint.Visibility = Visibility.Collapsed;
+                HintLack.Visibility = Visibility.Collapsed;
                 RestartButton.Visibility = Visibility.Visible;
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }

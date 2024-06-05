@@ -14,4 +14,9 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Flag_of_Ukraine.png" />
+      <Resource Include="Flag_of_Ukraine.png" />
+    </ItemGroup>
+
 </Project>

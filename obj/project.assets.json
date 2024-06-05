@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\Sudoku_2024.csproj",
+      "projectUniqueName": "C:\\Users\\anton\\RiderProjects\\Sudoku_2024_\\Sudoku_2024.csproj",
       "projectName": "Sudoku_2024",
-      "projectPath": "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\Sudoku_2024.csproj",
+      "projectPath": "C:\\Users\\anton\\RiderProjects\\Sudoku_2024_\\Sudoku_2024.csproj",
       "packagesPath": "C:\\Users\\anton\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\obj\\",
+      "outputPath": "C:\\Users\\anton\\RiderProjects\\Sudoku_2024_\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\anton\\AppData\\Roaming\\NuGet\\NuGet.Config",

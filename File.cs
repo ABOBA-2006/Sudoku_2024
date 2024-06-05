@@ -7,8 +7,10 @@ public static class Files
     public static (string[,], string[,]) Read()
     {
         MapGenerator.WriteIntoFile();
-        const string fileName = "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\schemes\\scheme.txt"; 
-        const string fileAnswerName = "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\schemes\\scheme_solved.txt";
+        string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        string schemesPath = Directory.GetParent(currentDirectory).Parent.Parent.Parent.FullName;;
+        string fileName = Path.Combine(schemesPath, "schemes", "scheme.txt");
+        string fileAnswerName = Path.Combine(schemesPath, "schemes", "scheme_solved.txt");
         
         
         string[,] splitText = new string[9,9];

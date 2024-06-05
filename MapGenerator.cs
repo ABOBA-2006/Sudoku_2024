@@ -42,8 +42,10 @@ public static class MapGenerator
     public static void WriteIntoFile()
     {
         CreateScheme();
-        const string fileName = "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\schemes\\scheme.txt";
-        const string fileAnswerName = "C:\\Users\\anton\\RiderProjects\\Sudoku_2024\\Sudoku_2024\\schemes\\scheme_solved.txt";
+        string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        string schemesPath = Directory.GetParent(currentDirectory).Parent.Parent.Parent.FullName;;
+        string fileName = Path.Combine(schemesPath, "schemes", "scheme.txt");
+        string fileAnswerName = Path.Combine(schemesPath, "schemes", "scheme_solved.txt");
 
         using StreamWriter writer = new StreamWriter(fileName);
         using StreamWriter writer2 = new StreamWriter(fileAnswerName);

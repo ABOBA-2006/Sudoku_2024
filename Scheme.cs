@@ -416,8 +416,6 @@ public class Scheme {
             child.Foreground = Brushes.Black;
             child.FontSize = 30;
         }
-        
-        MapGenerator.WriteIntoFile();
     }
     
     // SHOW BACKTRACKING ANIMATION......................................................................................
